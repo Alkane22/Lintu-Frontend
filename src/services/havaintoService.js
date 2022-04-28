@@ -6,4 +6,4 @@ const getHavainnot = async () => {
     return res.data
 }
 
-export default getHavainnot
+export default {getHavainnot}

@@ -7,6 +7,8 @@ import loginService from '../services/loginService'
 import { updateNotification } from '../reducers/notificationReducer'
 import Notification from '../components/Notification'
 
+//Tutki modal
+//https://react-bootstrap.netlify.app/components/modal/
 
 function Login() {
     const [username, setUsername] = useState('')

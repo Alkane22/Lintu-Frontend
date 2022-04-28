@@ -16,5 +16,20 @@
 #HomeContent{
     border: 2px solid gray;
     border-radius: 10px;
+    padding: 1em;
 }
 
+
+#HavaintoKortti{
+    margin: 1px;
+}
+
+#HavaintoKaruselli{
+    text-shadow: 2px 2px black;
+    padding-top: 5px;
+}
+
+#HavaintoKaruselliItem img{
+    height: 200px;
+    border-radius: 5px;
+}
