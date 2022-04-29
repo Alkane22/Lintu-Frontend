@@ -3,7 +3,21 @@ import { NavLink } from 'react-router-dom'
 
 import { Navbar, Container, Nav, NavDropdown } from 'react-bootstrap'
 
+import { showHavaintoModal } from '../reducers/havaintoModalReducer'
+import { showloginModal } from '../reducers/loginModalReducer'
+import { useDispatch } from 'react-redux'
+
 const NavigationBar = () => {
+    const dispatch = useDispatch()
+
+    const havaintoModalHandle = () => {
+        dispatch(showHavaintoModal())
+    }
+
+    const loginModalHandle = () => {
+        dispatch(showloginModal())
+    }
+
     return (
         <Navbar collapseOnSelect expand="lg" bg="light" variant="light">
             <Container>
@@ -22,14 +36,12 @@ const NavigationBar = () => {
 
                         <NavLink className="nav-link active" to='/linnut'>Linnut</NavLink>
 
-                        <NavLink className="nav-link active" to='/login'>Kirjaudu</NavLink>
-
-                        <NavDropdown title="Dropdown" id="collasible-nav-dropdown">
-                            <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-                            <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
-                            <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
+                        <NavDropdown title="Valikko" id="collasible-nav-dropdown">
+                            <NavDropdown.Item onClick={() => havaintoModalHandle()}>Lisää havainto</NavDropdown.Item>
+                            <NavDropdown.Item onClick={() => loginModalHandle()}>Käyttäjä</NavDropdown.Item>
+                            <NavDropdown.Item href="#action/3.3">tyhjä</NavDropdown.Item>
                             <NavDropdown.Divider />
-                            <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
+                            <NavDropdown.Item href="#action/3.4">tyhjä</NavDropdown.Item>
                         </NavDropdown>
                     </Nav>
                 </Navbar.Collapse>

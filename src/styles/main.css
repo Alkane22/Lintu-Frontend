@@ -19,9 +19,8 @@
     padding: 1em;
 }
 
-
 #HavaintoKortti{
-    margin: 1px;
+    margin: 5px;
 }
 
 #HavaintoKaruselli{
@@ -32,4 +31,14 @@
 #HavaintoKaruselliItem img{
     height: 200px;
     border-radius: 5px;
+}
+
+#lintuFigImg{
+    height: 50px;
+    margin-top: 5px;
+    margin-bottom: 0;
+}
+
+#havaintoModal .row{
+    margin: 2px;
 }

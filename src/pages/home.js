@@ -5,6 +5,8 @@ import { useDispatch } from "react-redux"
 import NavigationBar from "../components/NavigationBar";
 import Footer from "../components/Footer"
 import Paths from '../components/Paths';
+import CreateHavaintoModal from '../windows/CreateHavainto';
+import LoginModal from '../windows/LoginModal';
 
 
 const HomePage = () => {
@@ -22,6 +24,8 @@ const HomePage = () => {
                 <NavigationBar />
                 <Paths />
                 <Footer />
+                <CreateHavaintoModal />
+                <LoginModal />
             </HashRouter>
         </div>
     )

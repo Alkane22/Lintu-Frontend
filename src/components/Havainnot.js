@@ -15,7 +15,18 @@ const Havainnot = () => {
         fetchData()
     }, [])
 
-    const Havainto = ({ location, date, user, info, observations }) => {
+    const delHav = async id => {
+        try{
+            await havaintos.deleteHavainto(id)
+            const response = await havaintos.getHavainnot()
+            setDataFromServer(response)
+        } catch(e){
+            console.log(e.response.data)
+        }
+
+    }
+
+    const Havainto = ({ location, date, user, info, observations, id }) => {
         /* colors
         [
             'Primary',
@@ -67,31 +78,42 @@ const Havainnot = () => {
                 id={'HavaintoKortti'}
             >
                 <Card.Header>
-                    <h5>{location}</h5>
+                    <Row>
+                        <Col xs={9}>
+                            <h5>{location}</h5>
+                        </Col>
+                        <Col xs={3}>
+                            <Button
+                                variant='danger'
+                                onClick={() => delHav(id)}
+                            >X
+                            </Button>
+                        </Col>
+                    </Row>
                 </Card.Header>
                 <Card.Img variant="top" src={kuva} />
                 <Card.Body>
                     <Card.Title>{user}</Card.Title>
                     <Card.Subtitle>{info}</Card.Subtitle>
 
-                        <Carousel id={'HavaintoKaruselli'}>
-                            {observations.map((obs, i) => {
-                                //console.log(obs);
-                                return (
-                                    <Carousel.Item key={i} id={'HavaintoKaruselliItem'}>
-                                        <img
-                                            src={obs.bird.image}
-                                            className="d-block w-100"
-                                            alt={`slide(${i})`}
-                                        />
-                                        <Carousel.Caption>
-                                            <h3>{obs.bird.name}</h3>
-                                            <h4>{obs.amount} kpl</h4>
-                                        </Carousel.Caption>
-                                    </Carousel.Item>
-                                )
-                            })}
-                        </Carousel>
+                    <Carousel id={'HavaintoKaruselli'}>
+                        {observations.map((obs, i) => {
+                            //console.log(obs);
+                            return (
+                                <Carousel.Item key={i} id={'HavaintoKaruselliItem'}>
+                                    <img
+                                        src={obs.bird.image}
+                                        className="d-block w-100"
+                                        alt={`slide(${i})`}
+                                    />
+                                    <Carousel.Caption>
+                                        <h3>{obs.bird.name}</h3>
+                                        <h4>{obs.amount} kpl</h4>
+                                    </Carousel.Caption>
+                                </Carousel.Item>
+                            )
+                        })}
+                    </Carousel>
 
                 </Card.Body>
                 <Card.Footer>{date}</Card.Footer>
@@ -102,18 +124,19 @@ const Havainnot = () => {
 
     return (
         <Container>
-            <Row >
+            <Row className="justify-content-md-start">
                 {dataFromServer.map((havainto, index) => {
-                    console.log(havainto);
+                    //console.log(havainto);
                     let date = new Date(Number(havainto.date))
                     return (
-                        <Col key={index}>
+                        <Col xl='3' key={index}>
                             <Havainto
                                 location={`${havainto.county} (${havainto.location.Latitude}, ${havainto.location.Longitude})`}
                                 date={date.toDateString()}
                                 user={havainto.user.username}
                                 info={havainto.info}
                                 observations={havainto.observations}
+                                id={havainto.id}
                             />
                         </Col>
                     )
