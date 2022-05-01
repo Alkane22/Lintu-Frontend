@@ -22,6 +22,7 @@ function LoginModal() {
         const loggedUserJSON = window.localStorage.getItem('loggedLintuBongariUser')
         if (loggedUserJSON) {
             const user = JSON.parse(loggedUserJSON)
+            havaintoService.setToken(user.token)
             setUser(user)
         }
     }, [])

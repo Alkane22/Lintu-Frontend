@@ -1,11 +1,14 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef, useLayoutEffect } from 'react'
 import { Card, Button, ListGroup, Container, Row, Col, Figure, Carousel } from 'react-bootstrap'
 import havaintos from '../services/havaintoService'
 import kanakuva from '../imgs/Corvus_cornix_Oulu_1.JPG'
 import kuva from '../imgs/istockphoto-1.jpg'
 
+import GoogleMap from './GoogleMap'
+
 const Havainnot = () => {
     const [dataFromServer, setDataFromServer] = useState([])
+    const mapRef = useRef()
 
     useEffect(() => {
         async function fetchData() {
@@ -16,17 +19,17 @@ const Havainnot = () => {
     }, [])
 
     const delHav = async id => {
-        try{
+        try {
             await havaintos.deleteHavainto(id)
             const response = await havaintos.getHavainnot()
             setDataFromServer(response)
-        } catch(e){
+        } catch (e) {
             console.log(e.response.data)
         }
 
     }
 
-    const Havainto = ({ location, date, user, info, observations, id }) => {
+    const Havainto = ({ county, coords, date, user, info, observations, id }) => {
         /* colors
         [
             'Primary',
@@ -76,11 +79,13 @@ const Havainnot = () => {
                 bg='light'
                 text='dark'
                 id={'HavaintoKortti'}
+                className="justify-content-md-center"
             >
                 <Card.Header>
                     <Row>
                         <Col xs={9}>
-                            <h5>{location}</h5>
+                            <h5>{county}</h5>
+
                         </Col>
                         <Col xs={3}>
                             <Button
@@ -91,7 +96,17 @@ const Havainnot = () => {
                         </Col>
                     </Row>
                 </Card.Header>
-                <Card.Img variant="top" src={kuva} />
+
+                {/*<Card.Img variant="top" src={kuva} />*/}
+
+                <Card.Body>
+                    <GoogleMap
+                        ref={mapRef}
+                        size={{ width: '100%', height: '200px' }}
+                        mapCenter={coords}
+                    />
+                </Card.Body>
+
                 <Card.Body>
                     <Card.Title>{user}</Card.Title>
                     <Card.Subtitle>{info}</Card.Subtitle>
@@ -123,15 +138,16 @@ const Havainnot = () => {
     }
 
     return (
-        <Container>
-            <Row className="justify-content-md-start">
+        <Container >
+            <Row className="justify-content-xl-start">
                 {dataFromServer.map((havainto, index) => {
-                    //console.log(havainto);
+                    console.log(havainto);
                     let date = new Date(Number(havainto.date))
                     return (
-                        <Col xl='3' key={index}>
+                        <Col md={4} key={index} id='Havainnot'>
                             <Havainto
-                                location={`${havainto.county} (${havainto.location.Latitude}, ${havainto.location.Longitude})`}
+                                county={`${havainto.county}`} // (${havainto.location.Latitude}, ${havainto.location.Longitude})
+                                coords={{ lat: Number(havainto.location.Latitude), lng: Number(havainto.location.Longitude) }}
                                 date={date.toDateString()}
                                 user={havainto.user.username}
                                 info={havainto.info}
