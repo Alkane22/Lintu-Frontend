@@ -1,4 +1,5 @@
 import logo from '../imgs/binoculars_BnT_64px.png'
+import logo2 from '../imgs/binoculars_gradient.png'
 import { NavLink } from 'react-router-dom'
 
 import { Navbar, Container, Nav, NavDropdown } from 'react-bootstrap'
@@ -19,11 +20,11 @@ const NavigationBar = () => {
     }
 
     return (
-        <Navbar collapseOnSelect expand="lg" bg="light" variant="light">
+        <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
             <Container>
 
                 <NavLink className="navbar-brand" to='/'>
-                    <img src={logo} alt="" width="48" height="48" />
+                    <img src={logo2} alt="" width="48" height="48" />
                     LintuBongarit
                 </NavLink>
 
@@ -34,7 +35,7 @@ const NavigationBar = () => {
 
                         <NavLink className="nav-link active" to='/havainnot'>Havainnot</NavLink>
 
-                        <NavLink className="nav-link active" to='/linnut'>Linnut</NavLink>
+                        {/*<NavLink className="nav-link active" to='/linnut'>Linnut</NavLink>*/}
 
                         <NavDropdown title="Valikko" id="collasible-nav-dropdown">
                             <NavDropdown.Item onClick={() => havaintoModalHandle()}>Lisää havainto</NavDropdown.Item>

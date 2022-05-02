@@ -6,4 +6,14 @@ const login = async credentials => {
     return res.data
 }
 
-export default {login}
+const checkToken = async token => {
+    const res =  await axios.get(server + '/api/user/checkToken', {headers: { Authorization: `bearer ${token}`}})
+    return res.data
+}
+
+const register = async userObj => {
+    const res = await axios.post(server + '/api/user', userObj)
+    return res.data
+}
+
+export default {login, checkToken, register}

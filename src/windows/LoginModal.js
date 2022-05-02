@@ -6,10 +6,14 @@ import loginService from '../services/loginService'
 import { hideloginModal } from '../reducers/loginModalReducer'
 import havaintoService from '../services/havaintoService';
 
+import { updateNotification } from '../reducers/notificationReducer'
+import Notification from '../components/Notification'
+
 function LoginModal() {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [user, setUser] = useState(null)
+    const [register, setRegister] = useState(false)
 
     /*
     if(window.localStorage.loggedLintuBongariUser){
@@ -32,6 +36,13 @@ function LoginModal() {
 
     const handleClose = () => {
         dispatch(hideloginModal())
+        setRegister(false)
+        //console.log(user)
+    }
+
+    const notify = message => {
+        dispatch(updateNotification(message))
+        console.log(message);
     }
 
     const handleLogin = async (event) => {
@@ -57,44 +68,80 @@ function LoginModal() {
         }
     }
 
+    const handleRegister = async (event) => {
+        event.preventDefault()
+        try{
+            const res = await loginService.register({username, password})
+            if(res?.id){
+                setRegister(false)
+            }
+        } catch (e){
+            //console.log(e)
+            if(e.response?.data?.message){
+                notify(e.response.data.message)
+            }
+            if(e.response?.data?.error){
+                notify(e.response.data.error)
+            }
+        }
+    }
+
     const handleLogout = () => {
         window.localStorage.removeItem('loggedLintuBongariUser')
         setUser(null)
     }
 
+    const checkToken = async () => {
+        //console.log(user)
+        try {
+            const tokenStatus = await loginService.checkToken(user.token)
+        } catch (e) {
+            if (e.response.data.error === 'TokenExpiredError') {
+                setUser(null)
+                window.localStorage.removeItem('loggedLintuBongariUser')
+            }
+        }
+    }
+
     const LoginForm = () => {
         return (
-            <form className="row g-3" onSubmit={handleLogin}>
-                <div className="col-lg-6">
-                    <label htmlFor="inputEmail4" className="form-label">Käyttäjätunnus</label>
-                    <input
-                        type="username"
-                        id="inputEmail4"
-                        className="form-control"
-                        value={username}
-                        onChange={({ target }) => setUsername(target.value)}
-                    />
-                </div>
-                <div className="col-lg-6">
-                    <label htmlFor="inputPassword4" className="form-label">Salasana</label>
-                    <input
-                        type="password"
-                        id="inputPassword4"
-                        className="form-control"
-                        value={password}
-                        onChange={({ target }) => setPassword(target.value)}
-                    />
-                </div>
+            <div>
 
-                <div className="col-5">
-                    <button type="submit" className="btn btn-primary btn-block mb-4">Kirjaudu sisään</button>
-                </div>
+                <form className="row g-3" onSubmit={handleLogin}>
+                    <div className="col-lg-6">
+                        <label htmlFor="inputEmail4" className="form-label">Käyttäjätunnus</label>
+                        <input
+                            type="username"
+                            id="inputEmail4"
+                            className="form-control"
+                            value={username}
+                            onChange={({ target }) => setUsername(target.value)}
+                        />
+                    </div>
+                    <div className="col-lg-6">
+                        <label htmlFor="inputPassword4" className="form-label">Salasana</label>
+                        <input
+                            type="password"
+                            id="inputPassword4"
+                            className="form-control"
+                            value={password}
+                            onChange={({ target }) => setPassword(target.value)}
+                        />
+                    </div>
 
-            </form>
+                    <div className="d-grid gap-2">
+                        <button type="submit" className="btn btn-primary btn-block mb-4">Kirjaudu sisään</button>
+                    </div>
+                </form>
+                <div className="d-grid gap-2">
+                    <button className="btn btn-success btn-block mb-4" onClick={() => setRegister(true)}>Rekisteröidy</button>
+                </div>
+            </div>
         )
     }
 
     const LoggedInForm = () => {
+        checkToken() //if token has expired then setuser to null and remove token from localstorage
         return (
             <div>
                 <h3>{user.name}</h3>
@@ -108,9 +155,35 @@ function LoginModal() {
         )
     }
 
-    const RegisterForm  = () => {
-        //todo
-        console.log('todo')
+    const RegisterForm = () => {
+        return (
+            <form className="row g-3" onSubmit={handleRegister}>
+                    <div className="col-lg-6">
+                        <label htmlFor="inputEmail4" className="form-label">Käyttäjätunnus</label>
+                        <input
+                            type="username"
+                            id="inputEmail4"
+                            className="form-control"
+                            value={username}
+                            onChange={({ target }) => setUsername(target.value)}
+                        />
+                    </div>
+                    <div className="col-lg-6">
+                        <label htmlFor="inputPassword4" className="form-label">Salasana</label>
+                        <input
+                            type="password"
+                            id="inputPassword4"
+                            className="form-control"
+                            value={password}
+                            onChange={({ target }) => setPassword(target.value)}
+                        />
+                    </div>
+
+                    <div className="d-grid gap-2">
+                        <button type="submit" className="btn btn-primary btn-block mb-4">Rekisteröidy</button>
+                    </div>
+                </form>
+        )
     }
 
     return (
@@ -129,12 +202,13 @@ function LoginModal() {
 
             <Modal.Body>
 
-                {user === null ? LoginForm() : LoggedInForm()}
+                {register === true ? RegisterForm() : user === null ? LoginForm() : LoggedInForm()}
+
 
             </Modal.Body>
 
             <Modal.Footer>
-                <p>Moro!</p>
+                <Notification/>
             </Modal.Footer>
         </Modal>
     );

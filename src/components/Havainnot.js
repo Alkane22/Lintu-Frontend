@@ -87,7 +87,7 @@ const Havainnot = () => {
                             <h5>{county}</h5>
 
                         </Col>
-                        <Col xs={3}>
+                        <Col xs={3} className="d-grid gap-2">
                             <Button
                                 variant='danger'
                                 onClick={() => delHav(id)}
@@ -138,7 +138,7 @@ const Havainnot = () => {
     }
 
     return (
-        <Container >
+        <Container>
             <Row className="justify-content-xl-start">
                 {dataFromServer.map((havainto, index) => {
                     console.log(havainto);

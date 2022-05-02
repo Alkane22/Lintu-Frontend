@@ -3,7 +3,7 @@ import birdsInfo from '../imgs/linnut.webp'
 
 function HomeContent() {
   return (
-    <div class="row justify-content-md-center">
+    <div className="row justify-content-md-center">
       <h1>Home content</h1>
       <img src={birdsInfo} alt='' />
     </div>

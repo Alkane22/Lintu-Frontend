@@ -100,12 +100,14 @@ export default function HavaintoForm({ handleClose, mapRef }) {
             info
         }
 
-        const res = await havaintoService.createHavainto(havObj)
-
-
-        emptyInputs()
-        handleClose()
-        //console.log(res)
+        try {
+            const res = await havaintoService.createHavainto(havObj)
+            emptyInputs()
+            handleClose()
+        } catch (e){
+            //console.log(e.response.data.error.name)
+            notify(e.response.data.error.name)
+        }
     }
 
     const emptyInputs = () => {
@@ -171,7 +173,7 @@ export default function HavaintoForm({ handleClose, mapRef }) {
                     >Lintu
                     </Form.Label>
                 </Col>
-                <Col xs={4}>
+                <Col xs={5}>
                     <Form.Control
                         id="inputLintu1"
                         value={lintuHaku}
@@ -191,7 +193,7 @@ export default function HavaintoForm({ handleClose, mapRef }) {
                         onChange={({ target }) => setAmount(Number(target.value))}
                     />
                 </Col>
-                <Col xs={2}>
+                <Col xs={2} className="d-grid gap-2">
                     <Button
                         onClick={() => addLintu(lintuHaku, amount)}
                         variant='success'

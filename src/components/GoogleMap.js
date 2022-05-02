@@ -16,6 +16,7 @@ const GoogleComponent2 = React.forwardRef((props, ref) => {
         containerStyle = { width: props.size.width, height: props.size.height }
     }
 
+
     useImperativeHandle(ref, () => ({ getMyState: () => { return myState } }), [myState]);
 
     const { isLoaded } = useLoadScript({
