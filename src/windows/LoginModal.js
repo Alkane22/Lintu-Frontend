@@ -65,22 +65,26 @@ function LoginModal() {
         } catch (exception) {
             //dispatch(updateNotification(exception.response.data.error))
             console.log(exception.response.data.error);
+            notify(exception.response.data.error)
         }
     }
 
     const handleRegister = async (event) => {
         event.preventDefault()
-        try{
-            const res = await loginService.register({username, password})
-            if(res?.id){
-                setRegister(false)
+        try {
+            const res = await loginService.register({ username, password })
+            if (res?.id) {
+                notify(username + ' käyttäjä luotiin.')
+                setTimeout(() => {          
+                    setRegister(false)
+                  }, 3000)
             }
-        } catch (e){
+        } catch (e) {
             //console.log(e)
-            if(e.response?.data?.message){
+            if (e.response?.data?.message) {
                 notify(e.response.data.message)
             }
-            if(e.response?.data?.error){
+            if (e.response?.data?.error) {
                 notify(e.response.data.error)
             }
         }
@@ -88,6 +92,7 @@ function LoginModal() {
 
     const handleLogout = () => {
         window.localStorage.removeItem('loggedLintuBongariUser')
+        havaintoService.setToken(null)
         setUser(null)
     }
 
@@ -134,7 +139,10 @@ function LoginModal() {
                     </div>
                 </form>
                 <div className="d-grid gap-2">
-                    <button className="btn btn-success btn-block mb-4" onClick={() => setRegister(true)}>Rekisteröidy</button>
+                    <Button
+                        variant='secondary'
+                        onClick={() => setRegister(true)}
+                    >Rekisteröidy</Button>
                 </div>
             </div>
         )
@@ -158,31 +166,31 @@ function LoginModal() {
     const RegisterForm = () => {
         return (
             <form className="row g-3" onSubmit={handleRegister}>
-                    <div className="col-lg-6">
-                        <label htmlFor="inputEmail4" className="form-label">Käyttäjätunnus</label>
-                        <input
-                            type="username"
-                            id="inputEmail4"
-                            className="form-control"
-                            value={username}
-                            onChange={({ target }) => setUsername(target.value)}
-                        />
-                    </div>
-                    <div className="col-lg-6">
-                        <label htmlFor="inputPassword4" className="form-label">Salasana</label>
-                        <input
-                            type="password"
-                            id="inputPassword4"
-                            className="form-control"
-                            value={password}
-                            onChange={({ target }) => setPassword(target.value)}
-                        />
-                    </div>
+                <div className="col-lg-6">
+                    <label htmlFor="inputEmail4" className="form-label">Käyttäjätunnus</label>
+                    <input
+                        type="username"
+                        id="inputEmail4"
+                        className="form-control"
+                        value={username}
+                        onChange={({ target }) => setUsername(target.value)}
+                    />
+                </div>
+                <div className="col-lg-6">
+                    <label htmlFor="inputPassword4" className="form-label">Salasana</label>
+                    <input
+                        type="password"
+                        id="inputPassword4"
+                        className="form-control"
+                        value={password}
+                        onChange={({ target }) => setPassword(target.value)}
+                    />
+                </div>
 
-                    <div className="d-grid gap-2">
-                        <button type="submit" className="btn btn-primary btn-block mb-4">Rekisteröidy</button>
-                    </div>
-                </form>
+                <div className="d-grid gap-2">
+                    <button type="submit" className="btn btn-success btn-block mb-4">Rekisteröidy</button>
+                </div>
+            </form>
         )
     }
 
@@ -208,7 +216,7 @@ function LoginModal() {
             </Modal.Body>
 
             <Modal.Footer>
-                <Notification/>
+                <Notification />
             </Modal.Footer>
         </Modal>
     );

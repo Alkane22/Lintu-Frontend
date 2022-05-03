@@ -1,5 +1,5 @@
 import axios from 'axios'
-const server = 'https://lintu-bongarit.herokuapp.com'//'http://localhost:3001'
+const server = 'http://localhost:3001' //'https://lintu-bongarit.herokuapp.com' //'http://localhost:3001'
 
 let token = null
 

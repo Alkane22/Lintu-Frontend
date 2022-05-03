@@ -8,7 +8,7 @@ import { updateNotification } from '../../reducers/notificationReducer'
 export default function HavaintoForm({ handleClose, mapRef }) {
     const [linnut, setLinnut] = useState([])
     const [lintuHaku, setHaku] = useState('')
-    const [amount, setAmount] = useState(0)
+    const [amount, setAmount] = useState(1)
     const [alue, setAlue] = useState('')
     const [longitude, setLongitude] = useState(29.763048327113808)
     const [latitude, setLatitude] = useState(62.62641918532752)
@@ -61,7 +61,7 @@ export default function HavaintoForm({ handleClose, mapRef }) {
                 setLinnut(oldArray => [...oldArray, bird])
             }
             if (res.status === 201) {
-                notify(lintu + ' lisätty')
+                notify('uusi ' + lintu + ' lisätty')
                 const bird = {
                     name: res.data.name,
                     image: res.data.image,
@@ -78,6 +78,9 @@ export default function HavaintoForm({ handleClose, mapRef }) {
             }
             */
         }
+
+        setHaku('')
+        setAmount(1)
     }
 
     const saveHavainto = async (observations, county, long, lat, info) => {
@@ -105,8 +108,8 @@ export default function HavaintoForm({ handleClose, mapRef }) {
             emptyInputs()
             handleClose()
         } catch (e){
-            //console.log(e.response.data.error.name)
-            notify(e.response.data.error.name)
+            console.log(e)
+            notify(e.response.data.error)
         }
     }
 
@@ -131,7 +134,7 @@ export default function HavaintoForm({ handleClose, mapRef }) {
         <Container id='HavaintForm'>
             <Row>
                 <Col >
-                    <Form.Label>Alue</Form.Label>
+                    <Form.Label>Maasto</Form.Label>
                 </Col>
                 <Col>
                     <Form.Control
@@ -167,13 +170,13 @@ export default function HavaintoForm({ handleClose, mapRef }) {
 
 
             <Row>
-                <Col xs={1}>
+                <Col xs={2}>
                     <Form.Label
                         htmlFor='inputLintu1'
-                    >Lintu
+                    >Havainto
                     </Form.Label>
                 </Col>
-                <Col xs={5}>
+                <Col xs={4}>
                     <Form.Control
                         id="inputLintu1"
                         value={lintuHaku}
@@ -196,7 +199,7 @@ export default function HavaintoForm({ handleClose, mapRef }) {
                 <Col xs={2} className="d-grid gap-2">
                     <Button
                         onClick={() => addLintu(lintuHaku, amount)}
-                        variant='success'
+                        variant={lintuHaku.length === 0 ? 'secondary' : 'success'} 
                     >Lisää
                     </Button>
                 </Col>

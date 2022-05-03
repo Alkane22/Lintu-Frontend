@@ -1,5 +1,6 @@
 import axios from 'axios'
-const server = 'https://lintu-bongarit.herokuapp.com'//'http://localhost:3001'
+const server = 'http://localhost:3001' //'https://lintu-bongarit.herokuapp.com' //'http://localhost:3001'
+
 
 const login = async credentials => {
     const res = await axios.post(server + '/api/user/login', credentials, {headers: {'Content-Type': 'application/json'}})
