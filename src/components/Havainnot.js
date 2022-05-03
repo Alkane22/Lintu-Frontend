@@ -126,7 +126,7 @@ const Havainnot = () => {
         <Container>
             <Row className="justify-content-xl-start">
                 {dataFromServer.map((havainto, index) => {
-                    console.log(havainto);
+                    console.log(havainto)
                     let date = new Date(Number(havainto.date))
                     return (
                         <Col md={4} key={index} id='Havainnot'>

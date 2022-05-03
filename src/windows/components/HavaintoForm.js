@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react'
-import { useSelector, useDispatch } from 'react-redux';
-import { Button, Row, Col, Form, Figure, Container } from "react-bootstrap";
-import havaintoService from '../../services/havaintoService';
+import React, { useEffect, useState } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { Button, Row, Col, Form, Figure, Container } from 'react-bootstrap'
+import havaintoService from '../../services/havaintoService'
 
 import { updateNotification } from '../../reducers/notificationReducer'
 
@@ -17,7 +17,7 @@ export default function HavaintoForm({ handleClose, mapRef }) {
     const dispatch = useDispatch()
     const notify = message => {
         dispatch(updateNotification(message))
-        console.log(message);
+        console.log(message)
     }
 
     //we get lat and long from GoogleMap refrence

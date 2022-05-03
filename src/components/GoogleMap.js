@@ -1,6 +1,6 @@
 import React, { useImperativeHandle, useMemo } from 'react'
 
-import { GoogleMap, useLoadScript, Marker, MarkerF, InfoWindow } from '@react-google-maps/api';
+import { GoogleMap, useLoadScript, Marker, MarkerF, InfoWindow } from '@react-google-maps/api'
 
 const GoogleComponent2 = React.forwardRef((props, ref) => {
     let myState = {
@@ -17,10 +17,10 @@ const GoogleComponent2 = React.forwardRef((props, ref) => {
     }
 
 
-    useImperativeHandle(ref, () => ({ getMyState: () => { return myState } }), [myState]);
+    useImperativeHandle(ref, () => ({ getMyState: () => { return myState } }), [myState])
 
     const { isLoaded } = useLoadScript({
-        googleMapsApiKey: "AIzaSyADlGcIvLSjMpzy8KBvJqOyEZFrCX5OdVI"
+        googleMapsApiKey: 'AIzaSyADlGcIvLSjMpzy8KBvJqOyEZFrCX5OdVI'
     })
 
     const handleClick = (event) => {

@@ -1,5 +1,5 @@
 import axios from 'axios'
-const server = 'http://localhost:3001' //'https://lintu-bongarit.herokuapp.com' //'http://localhost:3001'
+const server = 'https://lintu-bongarit.herokuapp.com' //'https://lintu-bongarit.herokuapp.com' //'http://localhost:3001'
 
 
 const login = async credentials => {

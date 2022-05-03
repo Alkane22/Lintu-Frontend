@@ -6,7 +6,7 @@ import { Navbar, Container, Nav, NavDropdown } from 'react-bootstrap'
 
 import { showHavaintoModal } from '../reducers/havaintoModalReducer'
 import { showloginModal } from '../reducers/loginModalReducer'
-import { showNotificationModal, updateNotificationModal } from '../reducers/notificationModalReducer'
+import { updateNotificationModal } from '../reducers/notificationModalReducer'
 import { useDispatch } from 'react-redux'
 
 const NavigationBar = () => {

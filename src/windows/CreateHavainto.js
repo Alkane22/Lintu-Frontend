@@ -1,15 +1,15 @@
-import { useState, useRef } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { Modal, Button, Row, Col, Form, Figure, Container } from "react-bootstrap";
+import { useState, useRef } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { Modal, Button, Row, Col, Form, Figure, Container } from 'react-bootstrap'
 
 import { hideHavaintoModal } from '../reducers/havaintoModalReducer'
 
 import { updateNotification } from '../reducers/notificationReducer'
 import Notification from './Notification'
 
-import GoogleMap from '../components/GoogleMap';
+import GoogleMap from '../components/GoogleMap'
 
-import HavaintoForm from './components/HavaintoForm';
+import HavaintoForm from './components/HavaintoForm'
 
 function CreateHavaintoModal() {
     const havaintoModal = useSelector(state => state.havaintoModal)
@@ -22,7 +22,7 @@ function CreateHavaintoModal() {
 
     const notify = message => {
         dispatch(updateNotification(message))
-        console.log(message);
+        console.log(message)
     }
 
     const [longitude, setLongitude] = useState(29.763048327113808)
@@ -65,9 +65,9 @@ function CreateHavaintoModal() {
                     </Row>
 
                     <HavaintoForm 
-                    notify={() => notify()} 
-                    handleClose={() => handleClose()} 
-                    mapRef={mapRef}
+                        notify={() => notify()} 
+                        handleClose={() => handleClose()} 
+                        mapRef={mapRef}
                     />
 
                 </Modal.Body>

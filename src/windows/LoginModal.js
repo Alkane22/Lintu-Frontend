@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux';
-import { Modal, Button } from "react-bootstrap";
+import { useSelector, useDispatch } from 'react-redux'
+import { Modal, Button } from 'react-bootstrap'
 
 import loginService from '../services/loginService'
 import { hideloginModal } from '../reducers/loginModalReducer'
-import havaintoService from '../services/havaintoService';
+import havaintoService from '../services/havaintoService'
 
 import { updateNotification } from '../reducers/notificationReducer'
 import Notification from './Notification'
@@ -42,7 +42,7 @@ function LoginModal() {
 
     const notify = message => {
         dispatch(updateNotification(message))
-        console.log(message);
+        console.log(message)
     }
 
     const handleLogin = async (event) => {
@@ -64,7 +64,7 @@ function LoginModal() {
             setPassword('')
         } catch (exception) {
             //dispatch(updateNotification(exception.response.data.error))
-            console.log(exception.response.data.error);
+            console.log(exception.response.data.error)
             notify(exception.response.data.error)
         }
     }
@@ -77,7 +77,7 @@ function LoginModal() {
                 notify(username + ' käyttäjä luotiin.')
                 setTimeout(() => {          
                     setRegister(false)
-                  }, 3000)
+                }, 3000)
             }
         } catch (e) {
             //console.log(e)
@@ -219,7 +219,7 @@ function LoginModal() {
                 <Notification />
             </Modal.Footer>
         </Modal>
-    );
+    )
 }
 
 export default LoginModal

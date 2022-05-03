@@ -2,7 +2,7 @@ import React from 'react'
 import { Modal, Button } from 'react-bootstrap'
 
 
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux'
 import { hideNotificationModal } from '../reducers/notificationModalReducer'
 
 export const GlobalNotifcation = () => {
@@ -43,7 +43,7 @@ const NotificationModal = ({ showBool, message, background }) => {
             </Modal.Body>
 
         </Modal>
-    );
+    )
 }
 
 export default NotificationModal

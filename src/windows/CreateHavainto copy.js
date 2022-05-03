@@ -1,14 +1,14 @@
-import { useState, useRef } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { Modal, Button, Row, Col, Form, Figure, Container } from "react-bootstrap";
+import { useState, useRef } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { Modal, Button, Row, Col, Form, Figure, Container } from 'react-bootstrap'
 
 import { hideHavaintoModal } from '../reducers/havaintoModalReducer'
 
 import { updateNotification } from '../reducers/notificationReducer'
 import Notification from '../components/Notification'
 
-import havaintoService from '../services/havaintoService';
-import GoogleMap from '../components/GoogleMap';
+import havaintoService from '../services/havaintoService'
+import GoogleMap from '../components/GoogleMap'
 
 function CreateHavaintoModal() {
     const havaintoModal = useSelector(state => state.havaintoModal)
@@ -131,108 +131,108 @@ function CreateHavaintoModal() {
         return (
             <Container>
                 <Row>
-                        <Col >
-                            <Form.Label>Alue</Form.Label>
-                        </Col>
-                        <Col>
-                            <Form.Control
-                                value={alue}
-                                onChange={({ target }) => setAlue(target.value)}
-                            />
-                        </Col>
-                    </Row>
+                    <Col >
+                        <Form.Label>Alue</Form.Label>
+                    </Col>
+                    <Col>
+                        <Form.Control
+                            value={alue}
+                            onChange={({ target }) => setAlue(target.value)}
+                        />
+                    </Col>
+                </Row>
 
-                    <Row>
-                        <Col>
-                            <Form.Label>Pituusaste</Form.Label>
-                        </Col>
-                        <Col>
-                            <Form.Control
-                                value={longitude}
-                                onChange={({ target }) => setLongitude(Number(target.value))}
-                            />
-                        </Col>
-                    </Row>
+                <Row>
+                    <Col>
+                        <Form.Label>Pituusaste</Form.Label>
+                    </Col>
+                    <Col>
+                        <Form.Control
+                            value={longitude}
+                            onChange={({ target }) => setLongitude(Number(target.value))}
+                        />
+                    </Col>
+                </Row>
 
-                    <Row>
-                        <Col>
-                            <Form.Label>Leveysaste</Form.Label>
-                        </Col>
-                        <Col>
-                            <Form.Control
-                                value={latitude}
-                                onChange={({ target }) => setLatitude(Number(target.value))}
-                            />
-                        </Col>
-                    </Row>
-
-
-                    <Row>
-                        <Col xs={1}>
-                            <Form.Label
-                                htmlFor='inputLintu1'
-                            >Lintu
-                            </Form.Label>
-                        </Col>
-                        <Col xs={4}>
-                            <Form.Control
-                                id="inputLintu1"
-                                value={lintuHaku}
-                                onChange={({ target }) => setHaku(target.value)}
-                            />
-                        </Col>
-                        <Col xs={2}>
-                            <Form.Label
-                                htmlFor='inputLintu2'
-                            >Määrä
-                            </Form.Label>
-                        </Col>
-                        <Col xs={2}>
-                            <Form.Control
-                                id="inputLintu2"
-                                value={amount}
-                                onChange={({ target }) => setAmount(Number(target.value))}
-                            />
-                        </Col>
-                        <Col xs={2}>
-                            <Button
-                                onClick={() => addLintu(lintuHaku, amount)}
-                                variant='success'
-                            >Lisää
-                            </Button>
-                        </Col>
-                    </Row>
-
-                    <Row>
-                        {linnut.map((lintu, i) => {
-                            //console.log(lintu)
-                            return (
-                                <Col xs={2} key={i}>
-                                    <Figure>
-                                        <Figure.Image id='lintuFigImg'
-                                            alt={lintu.name}
-                                            src={lintu.image}
-                                        />
-                                        <Figure.Caption>
-                                            {lintu.name}
-                                        </Figure.Caption>
-                                    </Figure>
-                                </Col>
-                            )
-                        })}
-                    </Row>
+                <Row>
+                    <Col>
+                        <Form.Label>Leveysaste</Form.Label>
+                    </Col>
+                    <Col>
+                        <Form.Control
+                            value={latitude}
+                            onChange={({ target }) => setLatitude(Number(target.value))}
+                        />
+                    </Col>
+                </Row>
 
 
+                <Row>
+                    <Col xs={1}>
+                        <Form.Label
+                            htmlFor='inputLintu1'
+                        >Lintu
+                        </Form.Label>
+                    </Col>
+                    <Col xs={4}>
+                        <Form.Control
+                            id="inputLintu1"
+                            value={lintuHaku}
+                            onChange={({ target }) => setHaku(target.value)}
+                        />
+                    </Col>
+                    <Col xs={2}>
+                        <Form.Label
+                            htmlFor='inputLintu2'
+                        >Määrä
+                        </Form.Label>
+                    </Col>
+                    <Col xs={2}>
+                        <Form.Control
+                            id="inputLintu2"
+                            value={amount}
+                            onChange={({ target }) => setAmount(Number(target.value))}
+                        />
+                    </Col>
+                    <Col xs={2}>
+                        <Button
+                            onClick={() => addLintu(lintuHaku, amount)}
+                            variant='success'
+                        >Lisää
+                        </Button>
+                    </Col>
+                </Row>
 
-                    <Row>
-                        <Col>
-                            <Form.Label>Info:</Form.Label>
-                            <Form.Control
-                                value={info}
-                                onChange={({ target }) => setInfo(target.value)}
-                            />
-                        </Col>
-                    </Row>
+                <Row>
+                    {linnut.map((lintu, i) => {
+                        //console.log(lintu)
+                        return (
+                            <Col xs={2} key={i}>
+                                <Figure>
+                                    <Figure.Image id='lintuFigImg'
+                                        alt={lintu.name}
+                                        src={lintu.image}
+                                    />
+                                    <Figure.Caption>
+                                        {lintu.name}
+                                    </Figure.Caption>
+                                </Figure>
+                            </Col>
+                        )
+                    })}
+                </Row>
+
+
+
+                <Row>
+                    <Col>
+                        <Form.Label>Info:</Form.Label>
+                        <Form.Control
+                            value={info}
+                            onChange={({ target }) => setInfo(target.value)}
+                        />
+                    </Col>
+                </Row>
             </Container>
         )
     }
@@ -264,7 +264,7 @@ function CreateHavaintoModal() {
                         </Col>
                     </Row>
 
-                <FormComponent/>
+                    <FormComponent/>
                     
                     {/* 
                     <Row>

@@ -27,7 +27,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint": "eslint .",
+    "lint-fix": "eslint . --fix --max-warnings=0"
   },
   "eslintConfig": {
     "extends": [
@@ -52,6 +54,8 @@
     "npm": "8.3.1"
   },
   "devDependencies": {
-    "eslint": "^8.14.0"
+    "eslint": "^8.14.0",
+    "eslint-plugin-only-warn": "^1.0.3",
+    "eslint-plugin-react": "^7.29.4"
   }
 }
