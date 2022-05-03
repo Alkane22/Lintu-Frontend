@@ -5,7 +5,7 @@ import { Modal, Button, Row, Col, Form, Figure, Container } from "react-bootstra
 import { hideHavaintoModal } from '../reducers/havaintoModalReducer'
 
 import { updateNotification } from '../reducers/notificationReducer'
-import Notification from '../components/Notification'
+import Notification from './Notification'
 
 import GoogleMap from '../components/GoogleMap';
 

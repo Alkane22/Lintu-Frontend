@@ -6,6 +6,7 @@ import { Navbar, Container, Nav, NavDropdown } from 'react-bootstrap'
 
 import { showHavaintoModal } from '../reducers/havaintoModalReducer'
 import { showloginModal } from '../reducers/loginModalReducer'
+import { showNotificationModal, updateNotificationModal } from '../reducers/notificationModalReducer'
 import { useDispatch } from 'react-redux'
 
 const NavigationBar = () => {
@@ -17,6 +18,16 @@ const NavigationBar = () => {
 
     const loginModalHandle = () => {
         dispatch(showloginModal())
+    }
+
+    const notificationModalHandle = () => {
+        //dispatch(showNotificationModal())
+        const testObj = {
+            message: 'lulz',
+            background: 'success',
+            timeout: 2000
+        }
+        dispatch(updateNotificationModal(testObj))
     }
 
     return (
@@ -40,7 +51,7 @@ const NavigationBar = () => {
                         <NavDropdown title="Valikko" id="collasible-nav-dropdown">
                             <NavDropdown.Item onClick={() => havaintoModalHandle()}>Lisää havainto</NavDropdown.Item>
                             <NavDropdown.Item onClick={() => loginModalHandle()}>Käyttäjä</NavDropdown.Item>
-                            <NavDropdown.Item href="#action/3.3">tyhjä</NavDropdown.Item>
+                            <NavDropdown.Item onClick={() => notificationModalHandle()}>tyhjä</NavDropdown.Item>
                             <NavDropdown.Divider />
                             <NavDropdown.Item href="#action/3.4">tyhjä</NavDropdown.Item>
                         </NavDropdown>

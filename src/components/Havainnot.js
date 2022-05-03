@@ -1,5 +1,9 @@
-import React, { useState, useEffect, useRef, useLayoutEffect } from 'react'
-import { Card, Button, ListGroup, Container, Row, Col, Figure, Carousel } from 'react-bootstrap'
+import React, { useState, useEffect, useRef } from 'react'
+import { Card, Button, Container, Row, Col, Carousel } from 'react-bootstrap'
+
+import { useDispatch } from 'react-redux'
+import { updateNotificationModal } from '../reducers/notificationModalReducer'
+
 import havaintos from '../services/havaintoService'
 import kanakuva from '../imgs/Corvus_cornix_Oulu_1.JPG'
 import kuva from '../imgs/istockphoto-1.jpg'
@@ -9,6 +13,7 @@ import GoogleMap from './GoogleMap'
 const Havainnot = () => {
     const [dataFromServer, setDataFromServer] = useState([])
     const mapRef = useRef()
+    const dispatch = useDispatch()
 
     useEffect(() => {
         async function fetchData() {
@@ -18,13 +23,24 @@ const Havainnot = () => {
         fetchData()
     }, [])
 
+    const notificationModalHandle = message => {
+        //dispatch(showNotificationModal())
+        const testObj = {
+            message,
+            background: 'danger',
+            timeout: 1000
+        }
+        dispatch(updateNotificationModal(testObj))
+    }
+
     const delHav = async id => {
         try {
             await havaintos.deleteHavainto(id)
             const response = await havaintos.getHavainnot()
             setDataFromServer(response)
         } catch (e) {
-            console.log(e.response.data)
+            //console.log(e.response.data)
+            notificationModalHandle(e.response.data.error)
         }
 
     }
@@ -42,37 +58,6 @@ const Havainnot = () => {
             'Dark',
         ]
         */
-
-        /* old for safe keeping.
-         return (
-            <Card
-                border='dark'
-                bg='light'
-                text='dark'
-                id={'HavaintoKortti'}
-            >
-                <Card.Header>
-                    <h5>{location}</h5>
-                    </Card.Header>
-                    <Card.Img variant="top" src={kuva} />
-                    <Card.Body>
-                        <Card.Title>{user}</Card.Title>
-                        <Card.Subtitle>{info}</Card.Subtitle>
-                        <Card.Text>Havainnot:</Card.Text>
-                        <ListGroup variant="flush">
-                            {observations.map((obs, i) => {
-                                //console.log(obs);
-                                return (
-                                    <ListGroup.Item key={i}>{obs.bird} {obs.amount}</ListGroup.Item>
-                                )
-                            })}
-                        </ListGroup>
-                    </Card.Body>
-                    <Card.Footer>{date}</Card.Footer>
-                </Card>
-            )
-        */
-
         return (
             <Card
                 border='dark'

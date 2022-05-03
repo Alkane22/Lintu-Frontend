@@ -7,7 +7,7 @@ import { hideloginModal } from '../reducers/loginModalReducer'
 import havaintoService from '../services/havaintoService';
 
 import { updateNotification } from '../reducers/notificationReducer'
-import Notification from '../components/Notification'
+import Notification from './Notification'
 
 function LoginModal() {
     const [username, setUsername] = useState('')
