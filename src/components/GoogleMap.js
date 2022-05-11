@@ -1,6 +1,6 @@
-import React, { useImperativeHandle, useMemo } from 'react'
+import React, { useImperativeHandle } from 'react'
 
-import { GoogleMap, useLoadScript, Marker, MarkerF, InfoWindow } from '@react-google-maps/api'
+import { GoogleMap, useLoadScript, MarkerF } from '@react-google-maps/api'
 
 const GoogleComponent2 = React.forwardRef((props, ref) => {
     let myState = {
@@ -12,7 +12,7 @@ const GoogleComponent2 = React.forwardRef((props, ref) => {
 
     let containerStyle = { width: '400px', height: '300px' }
 
-    if(props.size){
+    if (props.size) {
         containerStyle = { width: props.size.width, height: props.size.height }
     }
 
@@ -48,13 +48,13 @@ const GoogleComponent2 = React.forwardRef((props, ref) => {
 
         return (
             <GoogleMap
-                onLoad={(map) => {myState.map = map}}
+                onLoad={(map) => { myState.map = map }}
                 mapContainerStyle={containerStyle}
                 center={center}
                 zoom={10}
                 onClick={(e) => { handleClick(e); props.onClick() }}
             >
-                <MarkerF position={center}/>
+                <MarkerF position={center} />
                 {/**
 
                 <InfoWindow

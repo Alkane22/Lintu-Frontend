@@ -8,6 +8,7 @@ import {
 import TestContent2 from './TestContent2'
 import HomeContent from './HomeContent'
 import Havainnot from './Havainnot'
+import LeafletMapV2 from './LeafletMapV2'
 
 function Paths() {
     //const location = useLocation()
@@ -15,7 +16,6 @@ function Paths() {
         <Routes>
             <Route path='/' element={<HomeContent />} />
             <Route path='/havainnot' element={<Havainnot />} />
-            <Route path='/linnut' element={<TestContent2 />} />
         </Routes>
     )
 }

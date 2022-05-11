@@ -52,8 +52,6 @@ const NavigationBar = () => {
                             <NavDropdown.Item onClick={() => havaintoModalHandle()}>Lisää havainto</NavDropdown.Item>
                             <NavDropdown.Item onClick={() => loginModalHandle()}>Käyttäjä</NavDropdown.Item>
                             <NavDropdown.Item onClick={() => notificationModalHandle()}>tyhjä</NavDropdown.Item>
-                            <NavDropdown.Divider />
-                            <NavDropdown.Item href="#action/3.4">tyhjä</NavDropdown.Item>
                         </NavDropdown>
                     </Nav>
                 </Navbar.Collapse>

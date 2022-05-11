@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import React, { useState } from 'react'
+import { useDispatch } from 'react-redux'
 import { Button, Row, Col, Form, Figure, Container } from 'react-bootstrap'
 import havaintoService from '../../services/havaintoService'
 
@@ -24,17 +24,20 @@ export default function HavaintoForm({ handleClose, mapRef }) {
     if (mapRef.current) {
         //if getMyState() doesnt exist yet calling it is bad.
 
-        let long = mapRef.current.getMyState().lng || longitude
-        //lng might be null so we need can use longitude instead
+        let myLat = mapRef.current.getMyState().latlng.lat
+        let myLng = mapRef.current.getMyState().latlng.lng
 
-        //if they are not compared we go into infinite useState render loop.
-        if (long !== longitude) {
-            setLongitude(long)
-        }
-
-        let lati = mapRef.current.getMyState().lat || latitude
-        if (lati !== latitude) {
-            setLatitude(lati)
+        if (typeof myLat !== 'undefined' && typeof myLng !== 'undefined') {
+            //might be null so we need can use longitude instead
+            if(myLat && myLng){
+                //if they are not compared we go into infinite useState render loop.
+                if (myLat !== longitude) {
+                    setLongitude(myLat)
+                }
+                if (myLng !== latitude) {
+                    setLatitude(myLng)
+                }
+            }
         }
 
     }
@@ -107,7 +110,7 @@ export default function HavaintoForm({ handleClose, mapRef }) {
             const res = await havaintoService.createHavainto(havObj)
             emptyInputs()
             handleClose()
-        } catch (e){
+        } catch (e) {
             console.log(e)
             notify(e.response.data.error)
         }
@@ -199,7 +202,7 @@ export default function HavaintoForm({ handleClose, mapRef }) {
                 <Col xs={2} className="d-grid gap-2">
                     <Button
                         onClick={() => addLintu(lintuHaku, amount)}
-                        variant={lintuHaku.length === 0 ? 'secondary' : 'success'} 
+                        variant={lintuHaku.length === 0 ? 'secondary' : 'success'}
                     >Lisää
                     </Button>
                 </Col>

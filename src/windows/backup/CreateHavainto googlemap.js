@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { Modal, Row, Col, Container } from 'react-bootstrap'
+import { Modal, Button, Row, Col, Form, Figure, Container } from 'react-bootstrap'
 
 import { hideHavaintoModal } from '../reducers/havaintoModalReducer'
 
@@ -8,7 +8,6 @@ import { updateNotification } from '../reducers/notificationReducer'
 import Notification from './Notification'
 
 import GoogleMap from '../components/GoogleMap'
-import LeafletMapV2 from '../components/LeafletMapV2'
 
 import HavaintoForm from './components/HavaintoForm'
 
@@ -26,20 +25,15 @@ function CreateHavaintoModal() {
         console.log(message)
     }
 
-    const [longitude, setLongitude] = useState(29.76208090782166)
-    const [latitude, setLatitude] = useState(62.60066914543552)
+    const [longitude, setLongitude] = useState(29.763048327113808)
+    const [latitude, setLatitude] = useState(62.62641918532752)
 
     const handleMapClick = () => {
-        let myLat = mapRef.current.getMyState().latlng.lat
-        let myLng = mapRef.current.getMyState().latlng.lng
-
-        if (typeof myLat !== 'undefined' && typeof myLng !== 'undefined') {
-            if (myLat && myLng) {
-                setLatitude(myLat)
-                setLongitude(myLng)
-            }
-        }
-        //console.log(mapRef.current.getMyState().latlng)
+        //console.log(mapRef.current.getMyState()) //Map locations
+        //mapZoom = mapRef.current.getMyState().map.getZoom()
+        setLatitude(mapRef.current.getMyState().lat)
+        setLongitude(mapRef.current.getMyState().lng)
+        //console.log(mapRef.current.getMyState().map)
     }
 
     return (
@@ -58,20 +52,21 @@ function CreateHavaintoModal() {
                 <Modal.Body>
                     <Row>
                         <Col>
-                            <Container onClick={() => handleMapClick()}>
-                                <LeafletMapV2
+                            <Container>
+                                <GoogleMap
                                     ref={mapRef}
+                                    onClick={() => handleMapClick()}
                                     mapCenter={{ lat: latitude, lng: longitude }}
-                                    mapZoom={11}
+                                    mapZoom={10}
                                     size={{ width: '100%', height: '400px' }}
                                 />
                             </Container>
                         </Col>
                     </Row>
 
-                    <HavaintoForm
-                        notify={() => notify()}
-                        handleClose={() => handleClose()}
+                    <HavaintoForm 
+                        notify={() => notify()} 
+                        handleClose={() => handleClose()} 
                         mapRef={mapRef}
                     />
 

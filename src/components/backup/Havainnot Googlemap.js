@@ -6,7 +6,7 @@ import { updateNotificationModal } from '../reducers/notificationModalReducer'
 
 import havaintos from '../services/havaintoService'
 
-import LeafletMapV2 from './LeafletMapV2'
+import GoogleMap from './GoogleMap'
 
 const Havainnot = () => {
     const [dataFromServer, setDataFromServer] = useState([])
@@ -83,19 +83,11 @@ const Havainnot = () => {
                 {/*<Card.Img variant="top" src={kuva} />*/}
 
                 <Card.Body>
-                    <LeafletMapV2
-                        ref={mapRef}
-                        size={{ width: '100%', height: '200px' }}
-                        mapCenter={coords}
-                        mapZoom={11}
-                    />
-                    {/*
                     <GoogleMap
                         ref={mapRef}
                         size={{ width: '100%', height: '200px' }}
                         mapCenter={coords}
-                        />
-                     */}
+                    />
                 </Card.Body>
 
                 <Card.Body>
@@ -132,7 +124,7 @@ const Havainnot = () => {
         <Container>
             <Row className="justify-content-xl-start">
                 {dataFromServer.map((havainto, index) => {
-                    //console.log(havainto)
+                    console.log(havainto)
                     let date = new Date(Number(havainto.date))
                     return (
                         <Col md={4} key={index} id='Havainnot'>
